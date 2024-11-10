@@ -1,1 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>篩選和顯示資料</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .display-area { display: flex; justify-content: space-around; margin-top: 20px; }
+        .data-card { border: 1px solid #ddd; padding: 10px; width: 23%; text-align: center; }
+        .data-card h4 { font-size: 1.2em; }
+        select { margin: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">篩選資料範例</h1>
+
+        <!-- 下拉選單區 -->
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="filter1">篩選條件 1</label>
+                <select id="filter1" class="form-control">
+                    <option value="">所有</option>
+                    <option value="範例選項A">範例選項A</option>
+                    <option value="範例選項B">範例選項B</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="filter2">篩選條件 2</label>
+                <select id="filter2" class="form-control">
+                    <option value="">所有</option>
+                    <option value="範例選項X">範例選項X</option>
+                    <option value="範例選項Y">範例選項Y</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="filter3">篩選條件 3</label>
+                <select id="filter3" class="form-control">
+                    <option value="">所有</option>
+                    <option value="範例選項1">範例選項1</option>
+                    <option value="範例選項2">範例選項2</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="filter4">篩選條件 4</label>
+                <select id="filter4" class="form-control">
+                    <option value="">所有</option>
+                    <option value="範例選項A1">範例選項A1</option>
+                    <option value="範例選項B2">範例選項B2</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 資料顯示區 -->
+        <div class="display-area">
+            <div class="data-card" id="data1"><h4>資料 1</h4><p>顯示區</p></div>
+            <div class="data-card" id="data2"><h4>資料 2</h4><p>顯示區</p></div>
+            <div class="data-card" id="data3"><h4>資料 3</h4><p>顯示區</p></div>
+            <div class="data-card" id="data4"><h4>資料 4</h4><p>顯示區</p></div>
+        </div>
+    </div>
+
+    <script>
+        // 假設的資料（從星骰data分頁內的資料）
+        const data = [
+            {id: 1, name: "範例資料1", type1: "範例選項A", type2: "範例選項X", type3: "範例選項1", type4: "範例選項A1"},
+            {id: 2, name: "範例資料2", type1: "範例選項B", type2: "範例選項Y", type3: "範例選項2", type4: "範例選項B2"},
+            {id: 3, name: "範例資料3", type1: "範例選項A", type2: "範例選項X", type3: "範例選項1", type4: "範例選項A1"},
+            {id: 4, name: "範例資料4", type1: "範例選項B", type2: "範例選項Y", type3: "範例選項2", type4: "範例選項B2"}
+        ];
+
+        // 監聽篩選選單變化
+        document.querySelectorAll("select").forEach(select => {
+            select.addEventListener("change", filterData);
+        });
+
+        function filterData() {
+            // 取得每個選單的篩選條件
+            const filter1 = document.getElementById("filter1").value;
+            const filter2 = document.getElementById("filter2").value;
+            const filter3 = document.getElementById("filter3").value;
+            const filter4 = document.getElementById("filter4").value;
+
+            // 根據篩選條件篩選資料
+            const filteredData = data.filter(item => {
+                return (!filter1 || item.type1 === filter1) &&
+                       (!filter2 || item.type2 === filter2) &&
+                       (!filter3 || item.type3 === filter3) &&
+                       (!filter4 || item.type4 === filter4);
+            });
+
+            // 更新顯示區
+            for (let i = 1; i <= 4; i++) {
+                const dataCard = document.getElementById(`data${i}`);
+                const item = filteredData[i - 1];
+                if (item) {
+                    dataCard.innerHTML = `<h4>${item.name}</h4><p>${item.type1}, ${item.type2}, ${item.type3}, ${item.type4}</p>`;
+                } else {
+                    dataCard.innerHTML = "<h4>無資料</h4><p>顯示區</p>";
+                }
+            }
+        }
+
+        // 初始化顯示區
+        filterData();
+    </script>
+</body>
+</html>
 
