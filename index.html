@@ -230,11 +230,13 @@
             const oppositeSign = data.oppositeSigns[constellation];  // 獲取對宮星座
             document.getElementById('nodeEffectList').innerHTML = `<li>應該捨棄 ${constellation} 需要開發 ${oppositeSign}</li>`;
 
-            // 顯示對宮星座的推薦商品，去重
+            // 顯示對宮星座的推薦商品，去重顯示
             if (oppositeSign && data.recommendedProducts[oppositeSign]) {
-                // 去重顯示對宮星座商品
-                const uniqueItems = getUniqueItems(data.recommendedProducts[oppositeSign]);
-                uniqueItems.forEach(item => {
+                let oppositeSignProducts = data.recommendedProducts[oppositeSign] || [];
+                // 使用 Set 去重
+                oppositeSignProducts = [...new Set(oppositeSignProducts)];
+                
+                oppositeSignProducts.forEach(item => {
                     document.getElementById('recommendedProductsList').innerHTML += `<li>${item}</li>`;
                 });
             }
@@ -256,28 +258,27 @@
 
         // 如果星座和星球都被選擇，將兩者的商品合併並去重
         if (constellation && planet) {
-            // 如果星球是南交點☋，則只顯示對宮星座商品，不顯示原選星座商品
+            // 如果是南交點☋，只顯示對宮星座的商品
             if (planet === "南交點☋") {
-                const oppositeSign = data.oppositeSigns[constellation];  // 獲取對宮星座
-                if (oppositeSign && data.recommendedProducts[oppositeSign]) {
-                    recommendedItems = getUniqueItems(data.recommendedProducts[oppositeSign]);  // 去重顯示對宮星座商品
-                }
+                const oppositeSign = data.oppositeSigns[constellation];  // 根據對宮星座選擇商品
+                recommendedItems = data.recommendedProducts[oppositeSign] || [];
+                // 使用 Set 去重
+                recommendedItems = [...new Set(recommendedItems)];
             } else {
-                // 如果是其他星球，則合併星座和星球商品
                 let constellationProducts = data.recommendedProducts[constellation] || [];
                 let planetProducts = data.planetProducts[planet] || [];
 
-                // 合併並去重，使用 getUniqueItems 去重
-                recommendedItems = getUniqueItems([...constellationProducts, ...planetProducts]);
+                // 合併並去重，使用 Set 去重
+                recommendedItems = [...new Set([...constellationProducts, ...planetProducts])];
             }
         } 
         // 如果只有星座選擇
         else if (constellation) {
-            recommendedItems = getUniqueItems(data.recommendedProducts[constellation] || []);
+            recommendedItems = data.recommendedProducts[constellation] || [];
         } 
         // 如果只有星球選擇
         else if (planet) {
-            recommendedItems = getUniqueItems(data.planetProducts[planet] || []);
+            recommendedItems = data.planetProducts[planet] || [];
         }
 
         // 顯示商品，且若與建議商品重複，顯示紅色
@@ -286,24 +287,6 @@
             const listItem = `<li style="color: ${isDuplicate ? 'red' : 'black'};">${item}</li>`;
             document.getElementById('recommendedProductsList').innerHTML += listItem;
         });
-    }
-
-    // 用於去重商品的函數
-    function getUniqueItems(items) {
-        // 假設每個商品是字符串，若是物件可根據商品ID來去重
-        const uniqueItems = [];
-        const itemIds = new Set();
-
-        items.forEach(item => {
-            // 假設商品有一個 "id" 屬性，作為唯一標識
-            const itemId = item.id || item;  // 如果商品是物件，使用 item.id；如果是字符串，直接使用
-            if (!itemIds.has(itemId)) {
-                itemIds.add(itemId);
-                uniqueItems.push(item);
-            }
-        });
-
-        return uniqueItems;
     }
 </script>
 
