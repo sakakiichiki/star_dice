@@ -274,6 +274,9 @@
 
             // 合併商品並去重
             let allRecommended = [...new Set([...constellationProducts, ...planetProducts])];
+  
+            // 使用 Set 去重，保證顯示唯一商品
+            allRecommended = [...new Set(allRecommended)];
 
             // 顯示商品，若與建議商品重複，顯示紅色
             allRecommended.forEach(item => {
