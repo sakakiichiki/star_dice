@@ -36,9 +36,7 @@
             list-style: none;
             padding-left: 0;
         }
-        .suggested-products li {
-            color: red;
-        }
+
         .product-list li, .suggested-products li {
             margin: 8px 0;
         }
@@ -249,10 +247,12 @@
             });
         }
 
-        // 建議商品
-        if (gender && data.suggestedProducts[gender]) {
-            data.suggestedProducts[gender].forEach(item => {
-                document.getElementById('suggestedProductsList').innerHTML += `<li>${item}</li>`;
+        // 推薦商品，僅重複項目顯示紅色
+        if (constellation && data.recommendedProducts[constellation]) {
+            data.recommendedProducts[constellation].forEach(item => {
+                const isDuplicate = suggestedProducts.includes(item);
+                const listItem = `<li style="color: ${isDuplicate ? 'red' : 'black'};">${item}</li>`;
+                    document.getElementById('recommendedProductsList').innerHTML += listItem;
             });
         }
     }
