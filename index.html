@@ -226,14 +226,12 @@
         if (planet === "北交點☊" && constellation) {
             const oppositeSign = data.oppositeSigns[constellation];
             document.getElementById('nodeEffectList').innerHTML = `<li>${data.nodeEffects["北交點☊"]} ${constellation}</li>`;
-            if (oppositeSign) {
-                document.getElementById('nodeEffectList').innerHTML += `<li>${data.nodeEffects["南交點☋"]} ${oppositeSign}</li>`;
+
             }
         } else if (planet === "南交點☋" && constellation) {
             const oppositeSign = data.oppositeSigns[constellation];
             document.getElementById('nodeEffectList').innerHTML = `<li>${data.nodeEffects["南交點☋"]} ${constellation}</li>`;
-            if (oppositeSign) {
-                document.getElementById('nodeEffectList').innerHTML += `<li>${data.nodeEffects["北交點☊"]} ${oppositeSign}</li>`;
+
             }
         }
 
