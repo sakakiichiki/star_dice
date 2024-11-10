@@ -249,10 +249,25 @@
             document.getElementById('suggestedProductsList').innerHTML += `<li>${item}</li>`;
         });
 
-        // 推薦商品，顯示星座 + 星球的商品，重複的商品只顯示一次，並且重複的顯示紅色
-        let recommendedItems = [];
-        
-        // 先獲取星座和星球的推薦商品
+        // 當選擇星座，單獨顯示該星座的商品
+        if (constellation) {
+            if (data.recommendedProducts[constellation]) {
+                data.recommendedProducts[constellation].forEach(item => {
+                    document.getElementById('recommendedProductsList').innerHTML += `<li>${item}</li>`;
+                });
+            }
+        }
+
+        // 當選擇星球，單獨顯示該星球的商品
+        if (planet) {
+            if (data.planetProducts[planet]) {
+                data.planetProducts[planet].forEach(item => {
+                    document.getElementById('recommendedProductsList').innerHTML += `<li>${item}</li>`;
+                });
+            }
+        }
+
+        // 當選擇星座和星球兩者時，顯示合併後的商品並檢查是否重複
         if (constellation && planet) {
             let constellationProducts = data.recommendedProducts[constellation] || [];
             let planetProducts = data.planetProducts[planet] || [];
@@ -260,7 +275,7 @@
             // 合併商品並去重
             let allRecommended = [...new Set([...constellationProducts, ...planetProducts])];
 
-            // 顯示商品，且若與建議商品重複，顯示紅色
+            // 顯示商品，若與建議商品重複，顯示紅色
             allRecommended.forEach(item => {
                 const isDuplicate = suggestedProducts.includes(item);
                 const listItem = `<li style="color: ${isDuplicate ? 'red' : 'black'};">${item}</li>`;
