@@ -233,7 +233,7 @@
             // 顯示對宮星座的推薦商品，去重
             if (oppositeSign && data.recommendedProducts[oppositeSign]) {
                 // 去重顯示對宮星座商品
-                const uniqueItems = [...new Set(data.recommendedProducts[oppositeSign])];
+                const uniqueItems = getUniqueItems(data.recommendedProducts[oppositeSign]);
                 uniqueItems.forEach(item => {
                     document.getElementById('recommendedProductsList').innerHTML += `<li>${item}</li>`;
                 });
@@ -260,24 +260,24 @@
             if (planet === "南交點☋") {
                 const oppositeSign = data.oppositeSigns[constellation];  // 獲取對宮星座
                 if (oppositeSign && data.recommendedProducts[oppositeSign]) {
-                    recommendedItems = [...new Set(data.recommendedProducts[oppositeSign])];  // 去重顯示對宮星座商品
+                    recommendedItems = getUniqueItems(data.recommendedProducts[oppositeSign]);  // 去重顯示對宮星座商品
                 }
             } else {
                 // 如果是其他星球，則合併星座和星球商品
                 let constellationProducts = data.recommendedProducts[constellation] || [];
                 let planetProducts = data.planetProducts[planet] || [];
 
-                // 合併並去重，使用 Set 去重
-                recommendedItems = [...new Set([...constellationProducts, ...planetProducts])];
+                // 合併並去重，使用 getUniqueItems 去重
+                recommendedItems = getUniqueItems([...constellationProducts, ...planetProducts]);
             }
         } 
         // 如果只有星座選擇
         else if (constellation) {
-            recommendedItems = data.recommendedProducts[constellation] || [];
+            recommendedItems = getUniqueItems(data.recommendedProducts[constellation] || []);
         } 
         // 如果只有星球選擇
         else if (planet) {
-            recommendedItems = data.planetProducts[planet] || [];
+            recommendedItems = getUniqueItems(data.planetProducts[planet] || []);
         }
 
         // 顯示商品，且若與建議商品重複，顯示紅色
@@ -286,6 +286,12 @@
             const listItem = `<li style="color: ${isDuplicate ? 'red' : 'black'};">${item}</li>`;
             document.getElementById('recommendedProductsList').innerHTML += listItem;
         });
+    }
+
+    // 用於去重商品的函數
+    function getUniqueItems(items) {
+        // 假設每個商品是字符串，如果是物件，則可以根據某個唯一標識來去重
+        return [...new Set(items)];
     }
 </script>
 
