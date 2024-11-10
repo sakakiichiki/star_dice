@@ -226,7 +226,9 @@
         if (planet === "北交點☊" && constellation) {
             document.getElementById('nodeEffectList').innerHTML = `<li>${data.nodeEffects["北交點☊"]} ${constellation}</li>`;
         } else if (planet === "南交點☋" && constellation) {
-            document.getElementById('nodeEffectList').innerHTML = `<li>${data.nodeEffects["南交點☋"]} ${oppositeSigns}</li>`;
+            // 根據對宮星座來顯示南交點的影響
+            const oppositeSign = data.oppositeSigns[constellation];  // 獲取對宮星座
+            document.getElementById('nodeEffectList').innerHTML = `<li>應該捨棄 ${constellation} 需要開發 ${oppositeSign}</li>`;
         }
 
         // 宮位象徵
