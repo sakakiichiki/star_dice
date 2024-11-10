@@ -290,8 +290,20 @@
 
     // 用於去重商品的函數
     function getUniqueItems(items) {
-        // 假設每個商品是字符串，如果是物件，則可以根據某個唯一標識來去重
-        return [...new Set(items)];
+        // 假設每個商品是字符串，若是物件可根據商品ID來去重
+        const uniqueItems = [];
+        const itemIds = new Set();
+
+        items.forEach(item => {
+            // 假設商品有一個 "id" 屬性，作為唯一標識
+            const itemId = item.id || item;  // 如果商品是物件，使用 item.id；如果是字符串，直接使用
+            if (!itemIds.has(itemId)) {
+                itemIds.add(itemId);
+                uniqueItems.push(item);
+            }
+        });
+
+        return uniqueItems;
     }
 </script>
 
