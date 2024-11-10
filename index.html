@@ -254,11 +254,18 @@
 
         // 如果星座和星球都被選擇，將兩者的商品合併並去重
         if (constellation && planet) {
-            let constellationProducts = data.recommendedProducts[constellation] || [];
-            let planetProducts = data.planetProducts[planet] || [];
+            if (planet === "南交點☋") {
+                // 當星球為南交點☋時，只顯示對宮星座的商品，不顯示原本選擇的星座商品
+                const oppositeSign = data.oppositeSigns[constellation];  // 獲取對宮星座
+                recommendedItems = data.recommendedProducts[oppositeSign] || [];
+            } else {
+                // 合併星座和星球的商品並去重
+                let constellationProducts = data.recommendedProducts[constellation] || [];
+                let planetProducts = data.planetProducts[planet] || [];
 
-            // 合併並去重，使用 Set 去重
-            recommendedItems = [...new Set([...constellationProducts, ...planetProducts])];
+                // 合併並去重，使用 Set 去重
+                recommendedItems = [...new Set([...constellationProducts, ...planetProducts])];
+            }
         } 
         // 如果只有星座選擇
         else if (constellation) {
