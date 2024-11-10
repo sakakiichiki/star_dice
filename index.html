@@ -13,6 +13,23 @@
             border-radius: 5px;
             background-color: #f9f9f9;
         }
+        .result-area h4 {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .highlight {
+            color: red;
+        }
+        .filter-section {
+            margin-top: 20px;
+        }
+        .filter-label {
+            font-weight: bold;
+        }
+        .dropdown-menu {
+            max-height: 200px;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body>
@@ -20,23 +37,23 @@
         <h1 class="text-center">星骰篩選系統</h1>
 
         <!-- Filter Section -->
-        <div class="row mt-4">
+        <div class="row filter-section">
             <div class="col-md-3">
-                <label for="zodiac">星座</label>
+                <label for="zodiac" class="filter-label">星座</label>
                 <select id="zodiac" class="form-control">
                     <option value="">選擇星座</option>
-                    <!-- Add zodiac options here -->
+                    <!-- Add zodiac options dynamically -->
                 </select>
             </div>
             <div class="col-md-3">
-                <label for="planet">星球</label>
+                <label for="planet" class="filter-label">星球</label>
                 <select id="planet" class="form-control">
                     <option value="">選擇星球</option>
-                    <!-- Add planet options here -->
+                    <!-- Add planet options dynamically -->
                 </select>
             </div>
             <div class="col-md-3">
-                <label for="gender">性別</label>
+                <label for="gender" class="filter-label">性別</label>
                 <select id="gender" class="form-control">
                     <option value="">選擇性別</option>
                     <option value="male">男性</option>
@@ -44,10 +61,10 @@
                 </select>
             </div>
             <div class="col-md-3">
-                <label for="house">宮位</label>
+                <label for="house" class="filter-label">宮位</label>
                 <select id="house" class="form-control">
                     <option value="">選擇宮位</option>
-                    <!-- Add house options here -->
+                    <!-- Add house options dynamically -->
                 </select>
             </div>
         </div>
@@ -65,7 +82,7 @@
 
         <div class="result-area" id="mainRecommendationArea">
             <h4>主推薦商品篩選後顯示區</h4>
-            <div id="mainRecommendationResult">請選擇條件後顯示內容。</div>
+            <div id="mainRecommendationResult" class="highlight">請選擇條件後顯示內容。</div>
         </div>
 
         <div class="result-area" id="suggestionArea">
