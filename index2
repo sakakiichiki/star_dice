@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表單示範</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+        }
+        .form-container, .recommend-container {
+            flex: 1;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .recommend-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .product-list, .suggested-products {
+            list-style: none;
+            padding-left: 0;
+        }
+        .suggested-products li {
+            color: red;
+        }
+        .product-list li, .suggested-products li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <h2>個人資訊</h2>
+        <form>
+            <label for="constellation">星座</label>
+            <select id="constellation">
+                <option value="雙魚座">雙魚座</option>
+                <option value="牡羊座">牡羊座</option>
+                <option value="金牛座">金牛座</option>
+                <!-- Add other options as needed -->
+            </select>
+
+            <label for="planet">星球</label>
+            <select id="planet">
+                <option value="北交點">北交點</option>
+                <option value="南交點">南交點</option>
+                <!-- Add other options as needed -->
+            </select>
+
+            <label for="gender">性別</label>
+            <select id="gender">
+                <option value="女">女</option>
+                <option value="男">男</option>
+            </select>
+
+            <label for="position">宮位</label>
+            <select id="position">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <!-- Add other options as needed -->
+            </select>
+        </form>
+    </div>
+
+    <div class="recommend-container">
+        <h2>推薦商品</h2>
+        <ul class="suggested-products">
+            <li>臨之花風味黑巧克力70%</li>
+            <li>多明尼加黑巧克力70%</li>
+            <li>ORIGIN #1 黑巧克力70%</li>
+            <li>大馬士革玫瑰黑巧克力70%</li>
+        </ul>
+
+        <h3>建議商品</h3>
+        <ul class="product-list">
+            <li>大馬士革玫瑰黑巧克力70%</li>
+            <li>台東洛神花白巧克力36%</li>
+            <li>台灣櫻花黑香醇黑牛奶巧克力50%</li>
+            <li>紅鳥龍牛奶巧克力50%</li>
+            <li>秘魯牛奶巧克力50%</li>
+            <li>秘魯黑巧克力100%</li>
+            <li>秘魯黑巧克力85%</li>
+            <li>真布粉紅玫瑰風味黑巧克力70%</li>
+            <li>深烘咖啡風味黑巧克力70%</li>
+            <li>輕烘咖啡風味黑巧克力70%</li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>
