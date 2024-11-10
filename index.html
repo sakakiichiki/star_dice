@@ -234,9 +234,20 @@
             document.getElementById('houseSymbolList').innerHTML = `<li>${data.houseSymbols[position]}</li>`;
         }
 
-        // 建議商品
-        const suggestedProducts = gender && data.suggestedProducts[gender] ? data.suggestedProducts[gender] : [];
-        suggestedProducts.forEach(item => {
+        // 建議商品： 星座 + 星球的商品
+        const recommendedProducts = [];
+        
+        if (constellation && data.recommendedProducts[constellation]) {
+            recommendedProducts.push(...data.recommendedProducts[constellation]);
+        }
+        if (planet && data.planetProducts[planet]) {
+            recommendedProducts.push(...data.planetProducts[planet]);
+        }
+
+        // 去除重複商品
+        const uniqueProducts = [...new Set(recommendedProducts)];
+
+        uniqueProducts.forEach(item => {
             document.getElementById('suggestedProductsList').innerHTML += `<li>${item}</li>`;
         });
 
