@@ -224,11 +224,19 @@
         document.getElementById('recommendedProductsList').innerHTML = '';
         document.getElementById('suggestedProductsList').innerHTML = '';
 
-        // 南北交點影響
-        if (data.nodeEffects["北交點☊"] && constellation) {
+        // 南北交點影響顯示邏輯
+        if (planet === "北交點☊" && constellation) {
             const oppositeSign = data.oppositeSigns[constellation];
-            document.getElementById('nodeEffectList').innerHTML = `<li>${data.nodeEffects["北交點☊"]} ${constellation}</li>
-            <li>${data.nodeEffects["南交點☋"]} ${oppositeSign}</li>`;
+            document.getElementById('nodeEffectList').innerHTML = `<li>${data.nodeEffects["北交點☊"]} ${constellation}</li>`;
+            if (oppositeSign) {
+                document.getElementById('nodeEffectList').innerHTML += `<li>${data.nodeEffects["南交點☋"]} ${oppositeSign}</li>`;
+            }
+        } else if (planet === "南交點☋" && constellation) {
+            const oppositeSign = data.oppositeSigns[constellation];
+            document.getElementById('nodeEffectList').innerHTML = `<li>${data.nodeEffects["南交點☋"]} ${constellation}</li>`;
+            if (oppositeSign) {
+                document.getElementById('nodeEffectList').innerHTML += `<li>${data.nodeEffects["北交點☊"]} ${oppositeSign}</li>`;
+            }
         }
 
         // 宮位象徵
