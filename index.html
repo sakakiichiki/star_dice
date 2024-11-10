@@ -226,12 +226,14 @@
         if (planet === "北交點☊" && constellation) {
             const oppositeSign = data.oppositeSigns[constellation];
             document.getElementById('nodeEffectList').innerHTML = `<li>${data.nodeEffects["北交點☊"]} ${constellation}</li>`;
-
+            if (oppositeSign) {
+                document.getElementById('nodeEffectList').innerHTML += `<li>${data.nodeEffects["南交點☋"]} ${oppositeSign}</li>`;
             }
         } else if (planet === "南交點☋" && constellation) {
             const oppositeSign = data.oppositeSigns[constellation];
             document.getElementById('nodeEffectList').innerHTML = `<li>${data.nodeEffects["南交點☋"]} ${constellation}</li>`;
-
+            if (oppositeSign) {
+                document.getElementById('nodeEffectList').innerHTML += `<li>${data.nodeEffects["北交點☊"]} ${oppositeSign}</li>`;
             }
         }
 
@@ -240,19 +242,18 @@
             document.getElementById('houseSymbolList').innerHTML = `<li>${data.houseSymbols[position]}</li>`;
         }
 
-        // 推薦商品
-        if (constellation && data.recommendedProducts[constellation]) {
-            data.recommendedProducts[constellation].forEach(item => {
-                document.getElementById('recommendedProductsList').innerHTML += `<li>${item}</li>`;
-            });
-        }
+        // 建議商品
+        const suggestedProducts = gender && data.suggestedProducts[gender] ? data.suggestedProducts[gender] : [];
+        suggestedProducts.forEach(item => {
+            document.getElementById('suggestedProductsList').innerHTML += `<li>${item}</li>`;
+        });
 
         // 推薦商品，僅重複項目顯示紅色
         if (constellation && data.recommendedProducts[constellation]) {
             data.recommendedProducts[constellation].forEach(item => {
                 const isDuplicate = suggestedProducts.includes(item);
                 const listItem = `<li style="color: ${isDuplicate ? 'red' : 'black'};">${item}</li>`;
-                    document.getElementById('recommendedProductsList').innerHTML += listItem;
+                document.getElementById('recommendedProductsList').innerHTML += listItem;
             });
         }
     }
