@@ -249,42 +249,32 @@
             document.getElementById('suggestedProductsList').innerHTML += `<li>${item}</li>`;
         });
 
-        // 當選擇星座，單獨顯示該星座的商品
-        if (constellation) {
-            if (data.recommendedProducts[constellation]) {
-                data.recommendedProducts[constellation].forEach(item => {
-                    document.getElementById('recommendedProductsList').innerHTML += `<li>${item}</li>`;
-                });
-            }
-        }
+        // 推薦商品邏輯：顯示星座和星球的商品，並去重顯示唯一商品
+        let recommendedItems = [];
 
-        // 當選擇星球，單獨顯示該星球的商品
-        if (planet) {
-            if (data.planetProducts[planet]) {
-                data.planetProducts[planet].forEach(item => {
-                    document.getElementById('recommendedProductsList').innerHTML += `<li>${item}</li>`;
-                });
-            }
-        }
-
-        // 當選擇星座和星球兩者時，顯示合併後的商品並檢查是否重複
+        // 如果星座和星球都被選擇，將兩者的商品合併並去重
         if (constellation && planet) {
             let constellationProducts = data.recommendedProducts[constellation] || [];
             let planetProducts = data.planetProducts[planet] || [];
 
-            // 合併商品並去重
-            let allRecommended = [...new Set([...constellationProducts, ...planetProducts])];
-  
-            // 使用 Set 去重，保證顯示唯一商品
-            allRecommended = [...new Set(allRecommended)];
-
-            // 顯示商品，若與建議商品重複，顯示紅色
-            allRecommended.forEach(item => {
-                const isDuplicate = suggestedProducts.includes(item);
-                const listItem = `<li style="color: ${isDuplicate ? 'red' : 'black'};">${item}</li>`;
-                document.getElementById('recommendedProductsList').innerHTML += listItem;
-            });
+            // 合併並去重，使用 Set 去重
+            recommendedItems = [...new Set([...constellationProducts, ...planetProducts])];
+        } 
+        // 如果只有星座選擇
+        else if (constellation) {
+            recommendedItems = data.recommendedProducts[constellation] || [];
+        } 
+        // 如果只有星球選擇
+        else if (planet) {
+            recommendedItems = data.planetProducts[planet] || [];
         }
+
+        // 顯示商品，且若與建議商品重複，顯示紅色
+        recommendedItems.forEach(item => {
+            const isDuplicate = suggestedProducts.includes(item);
+            const listItem = `<li style="color: ${isDuplicate ? 'red' : 'black'};">${item}</li>`;
+            document.getElementById('recommendedProductsList').innerHTML += listItem;
+        });
     }
 </script>
 
