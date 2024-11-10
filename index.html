@@ -229,6 +229,13 @@
             // 根據對宮星座來顯示南交點的影響
             const oppositeSign = data.oppositeSigns[constellation];  // 獲取對宮星座
             document.getElementById('nodeEffectList').innerHTML = `<li>應該捨棄 ${constellation} 需要開發 ${oppositeSign}</li>`;
+
+            // 顯示對宮星座的推薦商品
+            if (oppositeSign && data.recommendedProducts[oppositeSign]) {
+                data.recommendedProducts[oppositeSign].forEach(item => {
+                    document.getElementById('recommendedProductsList').innerHTML += `<li>${item}</li>`;
+                });
+            }
         }
 
         // 宮位象徵
