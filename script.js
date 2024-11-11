@@ -66,17 +66,14 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // 當表單選項改變時，更新查詢結果
-    document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById('selectionForm').addEventListener('change', function () {
-            const constellation = document.getElementById('constellation').value;
-            const planet = document.getElementById('planet').value;
-            const gender = document.getElementById('gender').value;
-            const position = document.getElementById('position').value;
+    document.getElementById('selectionForm').addEventListener('change', function () {
+        const constellation = document.getElementById('constellation').value;
+        const planet = document.getElementById('planet').value;
+        const gender = document.getElementById('gender').value;
+        const position = document.getElementById('position').value;
 
-            updateResults(constellation, planet, gender, position);
-        });
+        updateResults(constellation, planet, gender, position);
     });
-
 
     // 更新查詢結果的函數
     function updateResults(constellation, planet, gender, position) {
