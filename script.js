@@ -1,4 +1,4 @@
-<script>
+document.addEventListener('DOMContentLoaded', function() {
     // 資料定義
     const data = {
         recommendedProducts: {
@@ -143,4 +143,4 @@
             document.getElementById('recommendedProductsList').innerHTML += listItem;
         });
     }
-</script>
+});
